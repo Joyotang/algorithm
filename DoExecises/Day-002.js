@@ -44,7 +44,7 @@ function plusOne(digits) {
     let length = digits.length;
 
     for (let i = length - 1; i > length; i--) {
-        digits[i] = digits[i]++;
+        digits[i]++;
         digits[i] = digits[i] % 10;
         if (digits[i] !== 0) {
             return digits;
