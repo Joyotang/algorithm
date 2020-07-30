@@ -43,7 +43,7 @@ var isSubsequence = function(s, t) {
 
 
 
-/* -----------------------------------Day2 Code------------------------------------- */
+/* -----------------------------------The next day coding.------------------------------------- */
 function climbStairs(n) {
     if (n < 2) return n;
     let f1 = 1;

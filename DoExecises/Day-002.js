@@ -39,7 +39,7 @@ var maxDepth = function(root) {
 };
 
 
-/* -----------------------------------Day2 Code------------------------------------- */
+/* -----------------------------------The next day coding.------------------------------------- */
 function plusOne(digits) {
     let length = digits.length;
 
@@ -54,6 +54,28 @@ function plusOne(digits) {
     return digits;
 }
 
+
+function maxDepth(root) {
+    if (!root) return 0;
+    let left = maxDepth(root.left);
+    let right = maxDepth(root.right);
+    return Math.max(left, right) + 1;
+}
+
+
+
+function plusOne(digits) {
+    let length = digits.length;
+    for (let i = length - 1; i >= 0; i--) {
+        digits[i]++;
+        digits[i] = digits[i] % 10;
+        if (digits[i] !== 0) {
+            return digits;
+        }
+    }
+    digits.unshift(1);
+    return digits;
+}
 
 function maxDepth(root) {
     if (!root) return 0;
