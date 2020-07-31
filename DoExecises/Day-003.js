@@ -69,4 +69,37 @@ function threeSum(nums) {
 }
 
 
+const threeSum = function (nums) {
+    // 排序
+    nums.sort((a, b) => a - b);
+
+    let res = [];
+    let length = nums.length;
+    // 定义双指针
+    for (let k = 0; k < length - 2; k++) {
+        if (nums[k] > 0) break;
+
+        let i = k + 1;
+        let j = length - 1;
+        let sum = nums[k] + nums[i] + nums[j];
+
+        while(i < j) {
+            if (sum < 0) {
+                i++;
+            } else if (sum > 0) {
+                j--;
+            } else {
+                res.push([nums[k], nums[i], nums[j]]);
+
+                while(i < j && nums[i] === nums[i+1]) i++;
+                while(i < j && nums[j] === nums[j-1]) j--;
+
+                i++;
+                j--;
+            }
+        }
+    }
+    return res;
+}
+
 
