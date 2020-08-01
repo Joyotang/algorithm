@@ -17,7 +17,7 @@ var integerBreak = function (n) {
 const integerBreak = function (n) {
     let max = 1;
     if (n === 2 || n === 3) return n - 1;
-
+    
     for (; n > 4; n = n - 3) {
         max = max * 3;
     }

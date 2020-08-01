@@ -43,7 +43,7 @@ var maxDepth = function(root) {
 function plusOne(digits) {
     let length = digits.length;
 
-    for (let i = length - 1; i > length; i--) {
+    for (let i = length - 1; i >= 0; i--) {
         digits[i]++;
         digits[i] = digits[i] % 10;
         if (digits[i] !== 0) {
@@ -65,8 +65,9 @@ function maxDepth(root) {
 
 
 function plusOne(digits) {
-    let length = digits.length;
-    for (let i = length - 1; i >= 0; i--) {
+    let n = digits.length;
+
+    for (let i = n - 1; i > 0; i--) {
         digits[i]++;
         digits[i] = digits[i] % 10;
         if (digits[i] !== 0) {
