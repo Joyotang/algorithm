@@ -3,16 +3,16 @@
  * @param {number} n
  * @return {number}
  */
-var climbStairs = function(n) {
-    let dp = [];
+// var climbStairs = function(n) {
+//     let dp = [];
 
-    dp[0] = 1;
-    dp[1] = 1;
-    for (let i = 2; i <= n; i++) {
-       dp[i] = dp[i - 1] + dp[i - 2];
-    }
-    return dp[n];
-};
+//     dp[0] = 1;
+//     dp[1] = 1;
+//     for (let i = 2; i <= n; i++) {
+//        dp[i] = dp[i - 1] + dp[i - 2];
+//     }
+//     return dp[n];
+// };
 
 
 
@@ -43,31 +43,36 @@ var isSubsequence = function(s, t) {
 
 
 
-/* -----------------------------------Day2 Code------------------------------------- */
-function climbStairs(n) {
-    if (n < 2) return n;
-    let f1 = 1;
-    let f2 = 2;
-    let f3 = 3;
-    for (let i = 2; i < n; i++) {
-        f1 = (i - 1) + (i - 2);
+/* -----------------------------------The next day coding.------------------------------------- */
+// function climbStairs(n) {
+//     if (n < 2) return n;
+//     let f1 = 1;
+//     let f2 = 2;
+//     let f3 = 3;
+//     for (let i = 2; i < n; i++) {
+//         f1 = (i - 1) + (i - 2);
 
-        f2 = f1;
-        f3 = f2;
-    }
-    return f2 + f3;
-}
+//         f2 = f1;
+//         f3 = f2;
+//     }
+//     return f2 + f3;
+// }
 
 function climbStairs(n) {
     let dp = [];
+    
     dp[0] = 1;
     dp[1] = 1;
-
-    for (let i = 2; i < n; i++) {
+    for (let i = 2; i <= n; i++) {
+        console.log('dp[i-1]:', dp[i - 1]);
+        console.log('dp[i-2]:', dp[i - 2]);
+        
         dp[i] = dp[i - 1] + dp[i - 2];
+        console.log('dp[i]:', dp[i]);
     }
     return dp[n];
 }
+console.log(climbStairs(3));
 
 
 function isSubsequence(s, t) {
