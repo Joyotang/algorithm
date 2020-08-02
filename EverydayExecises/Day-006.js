@@ -101,3 +101,29 @@ var merge = function(nums1, m, nums2, n) {
 
 // console.log(merge([1,2,3,0,0,0], 3, [2,5,6], 3));
 console.log(merge([0], 0, [1], 1));
+
+
+/* -----------------------------------The next day coding.------------------------------------- */
+var rotate = function (nums, k) {
+    let n = nums.length;
+    reverse(0, n - 1);
+    reverse(0, k - 1);
+    reverse(k, n - 1);
+
+    function reverse(start, end) {
+        let temp = null;
+        while (start < end) {
+            temp = nums[start];
+            nums[start] = nums[end];
+            nums[end] = temp;
+            start++;
+            end--;
+        }
+    }
+    return nums;
+}
+
+
+
+
+
