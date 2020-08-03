@@ -124,6 +124,21 @@ var rotate = function (nums, k) {
 }
 
 
+var margeArray = function (nums1, m, nums2, n) {
+    let p1 = m - 1;
+    let p2 = n - 1;
+    let p = m + n - 1;
+
+    while ((p1 >= 0) && (p2 >= 0)) {
+        nums1[p--] = nums1[p1] < nums2[p2] ? nums2[p1--] : nums1[p1--];
+    }
+    function arrayCopy(src, srcIndex, dest, destIndex, length) {
+        dest.splice(destIndex, length, ...src.slice(srcIndex, srcIndex + length))
+    }
+    arrayCopy(nums2, 0, nums1, 0, p2 + 1);
+    return nums1;
+}
+
 
 
 
