@@ -13,7 +13,7 @@
  * @param {TreeNode} root
  * @return {void} Do not return anything, modify root in-place instead.
  */
-var flatten = function(root) {
+var flatten = function (root) {
     let current = root;
     while (current !== null) {
         if (current.left !== null) {
@@ -32,10 +32,10 @@ var flatten = function(root) {
 
 
 /* -----------------------------------The next day coding.------------------------------------- */
-var flatten = function(root) {
+var flatten = function (root) {
     let current = root;
-    
-    while(current !== null) {
+
+    while (current !== null) {
         if (current.left !== null) {
             let next = current.left;
             let pre = next;
@@ -49,3 +49,4 @@ var flatten = function(root) {
         current = current.right;
     }
 };
+
