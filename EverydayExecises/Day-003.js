@@ -42,26 +42,27 @@ console.log(threeSum(nums))
 /* -----------------------------------The next day coding.------------------------------------- */
 function threeSum(nums) {
     nums.sort((a, b) => a - b);
-    
     let res = [];
     let length = nums.length;
+
     for (let k = 0; k < length - 2; k++) {
         if (nums[k] > 0) break;
+        let start = k + 1;
+        let end = length - 1;
+        let sum = nums[k] + nums[start] + nums[end];
 
-        let i = k + 1;
-        let j = length - 1;
-        let sum = nums[k] + nums[i] + nums[j];
-        while (i < j) {
+        while (start < end) {
             if (sum < 0) {
-                i++;
+                start++;
             } else if (sum > 0) {
-                j++;
+                end--;
             } else {
-                res.push([nums[k], nums[i], nums[j]]);
-                while (i < j && nums[i] === nums[i+1]) i++;
-                while (i < j && nums[j] === nums[j-1]) j--;
-                i++;
-                j--;
+                res.push([nums[k], nums[start], nums[end]]);
+
+                while (start < end && nums[start] === nums[start+1]) start++;
+                while (start < end && nums[end] === nums[end-1]) end--;
+                start++;
+                end--;
             }
         }
     }
