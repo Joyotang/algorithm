@@ -1,4 +1,6 @@
 /**
+ * 144. 二叉树的前序遍历
+ * https://leetcode-cn.com/problems/binary-tree-preorder-traversal/
  * Definition for a binary tree node.
  * function TreeNode(val) {
  *     this.val = val;
@@ -11,17 +13,17 @@
  */
 var preorderTraversal = function(root) {
     let result = [];
-    
-    function preOrderTraversalNode(node) {
+
+    function helper(node) {
         if (!node) return;
         result.push(node.val);
-        preOrderTraversalNode(node.left);
-        preOrderTraversalNode(node.right);
+        helper(node.left);
+        helper(node.right);
     }
-    preOrderTraversalNode(root);
+
+    helper(root);
     return result;
 };
-
 
 var preorderTraversal = function(root) {
     let result = [];
@@ -39,4 +41,5 @@ var preorderTraversal = function(root) {
     
     return result;
 };
+
 
