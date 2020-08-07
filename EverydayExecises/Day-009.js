@@ -61,6 +61,8 @@ console.log(isAnagram('anagram', 'nagaram'));
 // hash-t: { a: 0, n: 0, g: 0, r: 0, m: 0 }
 // true
 
+
+/* -----------------------------------The next day coding.------------------------------------- */
 var isAnagram = function(s, t) {
     let hash = {};
 
