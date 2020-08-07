@@ -5,7 +5,7 @@
  */
 var getLeastNumbers = function(arr, k) {
     arr.sort((a, b) => a - b);
-    let res = []
+    let res = [];
 
     for (let i = 0; i < k; i++) {
         res.push(arr[i]);
