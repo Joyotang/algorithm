@@ -1,26 +1,6 @@
 /**
- * @param {number[]} arr
- * @param {number} k
- * @return {number[]}
+ * 大顶堆
  */
-var getLeastNumbers = function(arr, k) {
-    arr.sort((a, b) => a - b);
-    let res = [];
-
-    for (let i = 0; i < k; i++) {
-        res.push(arr[i]);
-    }
-    return res;
-};
-
-
-
-function swap(arr, i, j) {
-    let temp = arr[i];
-    arr[i] = arr[j];
-    arr[j] = temp;
-}
-
 class MaxHeap {
     constructor(arr = []) {
         this.heap = [];
@@ -74,22 +54,8 @@ class MaxHeap {
     }
 }
 
-
-var getLeastNumbers = function(arr, k) {
-    if (k >= arr.length) return arr;
-
-    let list = [];
-    for (let i = 0; i < k; i++) {
-        list.push(arr[i]);
-    }
-
-    let maxHeap = new MaxHeap(list);
-
-    for (let i = k; i < arr.length; ++i) {
-        if (maxHeap.top() > arr[i]) {
-            maxHeap.extract();
-            maxHeap.insert(arr[i]);
-        }
-    }
-    return maxHeap.heap;
-};
+function swap(arr, i, j) {
+    let temp = arr[i];
+    arr[i] = arr[j];
+    arr[j] = temp;
+}
