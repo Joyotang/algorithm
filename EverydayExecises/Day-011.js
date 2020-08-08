@@ -75,6 +75,75 @@ class MaxHeap {
 }
 
 
+class BinaryMaxHeap {
+    constructor(arr = []) {
+        this.d = 2;
+        this.heap = [];
+        // 初始化堆
+        if (Array.isArray(arr)) {
+            arr.forEach(this.insert.bind(this));
+        }
+    }
+    insert(value) {
+        this.heap.push(value);
+        this.heapifyUp(this.heap.length - 1);
+    }
+    delete(index) {
+        if (this.isEmpty()) throw new Error('Heap is empty, No element to delete.');
+
+        let maxElement = this.heap[index];
+        this.heap[index] = this.heap.pop();
+        this.heapifyDown(index);
+        return maxElement;
+    }
+    top() {
+        if (this.isEmpty()) throw new Error('Heap is empty.');
+        return this.heap[0];
+    }
+    isEmpty() {
+        return this.heap.length === 0;
+    }
+    parent(i) {
+        return Math.floor((i - 1) / this.d);
+    }
+    kthChild(i, k) {
+        return this.d * i + k;
+    }
+    heapifyUp(i) {
+        let insertValue = this.heap[i];
+        console.log('insertValue', insertValue);
+        while (i > 0 && insertValue > this.heap[this.parent(i)]) {
+            this.heap[i] = this.heap[this.parent(i)];
+            i = this.parent(i);
+        }
+        console.log('i', i);
+        this.heap[i] = insertValue;
+    }
+    heapifyDown(i) {
+        let childIndex;
+        let temp = this.heap[i];
+        while (this.kthChild(i, 1) < this.heapSize) {
+            childIndex = this.maxChild(i);
+            this.heap[i] = this.heap[this.parent(i)];
+            if (temp >= this.heap[childIndex]) break;
+
+            this.heap[i] = this.heap[childIndex];
+            i = childIndex;
+        }
+        this.heap[i] = temp;
+    }
+    maxChild(i) {
+        let leftChild = this.kthChild(i, 1);
+        let rightChild = this.kthChild(i, 2);
+        return this.heap[leftChild] > this.heap[rightChild] ? leftChild : rightChild;
+    }
+}
+
+const maxHeap = new BinaryMaxHeap([0,1,1,2,4,4,1,3,3,2]);
+console.log('maxHeap:', maxHeap);
+
+
+
 var getLeastNumbers = function(arr, k) {
     if (k >= arr.length) return arr;
 
@@ -83,7 +152,7 @@ var getLeastNumbers = function(arr, k) {
         list.push(arr[i]);
     }
 
-    let maxHeap = new MaxHeap(list);
+    let maxHeap = new BinaryMaxHeap(list);
 
     for (let i = k; i < arr.length; ++i) {
         if (maxHeap.top() > arr[i]) {
@@ -93,3 +162,6 @@ var getLeastNumbers = function(arr, k) {
     }
     return maxHeap.heap;
 };
+
+
+
