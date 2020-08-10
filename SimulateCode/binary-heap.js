@@ -16,7 +16,7 @@ class BinaryHeap {
         }
     }
     delete(index) {
-        if (this.heap.length === 0) return false;
+        if (this.isEmpty()) throw new Error('Heap is empty, No element to delete.');
 
         let value = this.heap[index];
         let i = index;
@@ -53,6 +53,9 @@ class BinaryHeap {
     }
     top() {
         return this.heap[0];
+    }
+    isEmpty() {
+        return this.heap.length === 0;
     }
     parent(index) {
         return Math.floor((index - 1) / 2);

@@ -7,26 +7,61 @@
 </head>
 <body>
     <script>
-        class BinaryMaxHeap {
-            constructor(arr = []) {
+        class BinaryHeap {
+            constructor(compare) {
                 this.d = 2;
                 this.heap = [];
-                // 初始化堆
-                if (Array.isArray(arr)) {
-                    arr.forEach(this.insert.bind(this));
-                }
+                this.compare = compare;
             }
-            insert(value) {
-                this.heap.push(value);
-                this.heapifyUp(this.heap.length - 1);
+            insert(insertValue) {
+                this.heapifyUp(this.heap.length, insertValue);
             }
             delete(index) {
                 if (this.isEmpty()) throw new Error('Heap is empty, No element to delete.');
+                let value = this.heap[index];
 
-                let maxElement = this.heap[index];
-                this.heap[index] = this.heap.pop();
                 this.heapifyDown(index);
-                return maxElement;
+                return value;
+            }
+            heapifyUp(i, insertValue) {
+                this.heap[i] = insertValue;
+
+                while (i > 0 && this.compare(insertValue, this.heap[this.parent(i)]) < 0) {
+                    this.heap[i] = this.heap[this.parent(i)];
+                    this.heap[this.parent(i)] = insertValue;
+                    i = this.parent(i);
+                }
+            }
+            heapifyDown(i) {
+                while (i < this.heap.length) {
+                    let leftIndex = this.kthChild(i, 1);
+                    let rightIndex = this.kthChild(i, 2);
+
+                    // 没有左子节点
+                    if (leftIndex >= this.heap.length) break;
+
+                    // 没有右子节点
+                    if (rightIndex >= this.heap.length) {
+                        this.heap[i] = this.heap[leftIndex];
+                        i = leftIndex;
+                        break;
+                    }
+
+                    // 比较左右节点的大小，更大的换到父节点
+                    if (this.compare(this.heap[leftIndex], this.heap[rightIndex]) < 0) {
+                        this.heap[i] = this.heap[leftIndex];
+                        i = leftIndex;
+                    } else {
+                        this.heap[i] = this.heap[rightIndex];
+                        i = rightIndex;
+                    }
+                }
+                // 查看最后的空位是不是最后的叶子节点
+                if (i < this.heap.length - 1) {
+                    this.heapifyUp(i, this.heap.pop());
+                } else {
+                    this.heap.pop();
+                }
             }
             top() {
                 if (this.isEmpty()) throw new Error('Heap is empty.');
@@ -36,107 +71,23 @@
                 return this.heap.length === 0;
             }
             parent(i) {
-                return Math.floor((i - 1) / this.d);
+                let { d } = this;
+                return Math.floor((i - 1) / d);
             }
             kthChild(i, k) {
                 return this.d * i + k;
-            }
-            heapifyUp(i) {
-                let insertValue = this.heap[i];
-                console.log('insertValue', insertValue);
-                // debugger
-                while (i > 0 && insertValue > this.heap[this.parent(i)]) {
-                    this.heap[i] = this.heap[this.parent(i)];
-                    i = this.parent(i);
-                }
-                console.log('i', i);
-                this.heap[i] = insertValue;
-            }
-            heapifyDown(i) {
-                let child = null;
-                let temp = this.heap[i];
-                while (this.kthChild(i, 1) < this.heap.length) {
-                    child = this.maxChild(i);
-                    if (temp >= this.heap[child]) {
-                        break;
-                    };
-
-                    this.heap[i] = this.heap[child];
-                    i = child;
-                }
-                this.heap[i] = temp;
             }
             maxChild(i) {
                 let leftChild = this.kthChild(i, 1);
                 let rightChild = this.kthChild(i, 2);
                 return this.heap[leftChild] > this.heap[rightChild] ? leftChild : rightChild;
             }
-        }
-
-        // const maxHeap = new BinaryMaxHeap([0,1,1,2,4,4]);
-        // console.log([0,1,1,2,4,4,1,3,3,2])
-        // console.log('maxHeap:', maxHeap);
-
-
-        class BinaryHeap {
-            constructor(compare) {
-                this.data = [];
-                this.compare = compare;
-            }
-
-            insert(value) {
-                this.insertAt(this.data.length, value);
-            }
-
-            insertAt(index, value) {
-                this.data[index] = value;
-                // 对比当前节点与其父节点，如果当前节点更小就交换它们
-                while (index > 0 && this.compare(value, this.data[Math.floor((index - 1) / 2)]) < 0) {
-                    this.data[index] = this.data[Math.floor((index - 1) / 2)];
-                    this.data[Math.floor((index - 1) / 2)] = value;
-                    index = Math.floor((index - 1) / 2);
-                }
-            }
-
-            delete(index) {
-                if (this.data.length === 0) return;
-
-                let value = this.data[index];
-                let i = index;
-                // fix heap
-                while (i < this.data.length) {
-                    let left = i * 2 + 1;
-                    let right = i * 2 + 2;
-                    // 没有左子节点
-                    if (left >= this.data.length) break;
-                    // 没有右子节点
-                    if (right >= this.data.length) {
-                        this.data[i] = this.data[left];
-                        i = left;
-                        break;
-                    }
-                    // 比较左右子节点的大小，更小的补到父节点
-                    if (this.compare(this.data[left], this.data[right]) < 0) {
-                        this.data[i] = this.data[left];
-                        i = left;
-                    } else {
-                        this.data[i] = this.data[right];
-                        i = right;
-                    }
-                }
-                // 查看最后的空位是不是最后的叶子节点
-                if (i < this.data.length - 1) {
-                    this.insertAt(i, this.data.pop());
-                } else {
-                    this.data.pop();
-                }
-                return value;
-            }
-            top() {
-                return this.data[0];
+            printHeap() {
+                console.log('heap:', this.heap);
             }
         }
 
+        
         /**
          * @param {number[]} arr
          * @param {number} k
@@ -145,11 +96,6 @@
         var getLeastNumbers = function(arr, k) {
             if (k === 0) return [];
             if (k > arr.length) return arr;
-
-            // let list = [];
-            // for (let i = 0; i < k; i++) {
-            //     list.push(arr[i]);
-            // }
 
             const maxHeap = new BinaryHeap((a, b) => b - a);
             let list = [];
@@ -164,7 +110,7 @@
                     maxHeap.insert(arr[i]);
                 }
             }
-            return maxHeap.data;
+            return maxHeap.heap;
         };
 
         // [42,40,36,39,26,33,29,31,35,15,26,20,32,23,27,19,28,22,10,7,11,12,12,18,7,17,22,8,19,17,15,6,19,10,27,22,13,5,8,1,2,1,9,7,9,5,7,1,4,2,2,2,8,2,3,3,2,7,19,0,10,10,8,0,1,5,16,2,6,6,22,1,2,1,12]
