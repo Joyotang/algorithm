@@ -30,7 +30,6 @@ var groupAnagrams = function(strs) {
  * 然后和其他解法一样，如果 key 一样，就把值映射到对应的 key 里。
  * 时间复杂度：O(NK)。
  */
-
 var groupAnagrams = function(strs) {
     let hash = new Map();
 
@@ -54,32 +53,6 @@ var groupAnagrams = function(strs) {
         console.log(`hash-${i}: ${hash}`);
     }
     return [...hash.values()];
-};
-
-
-var groupAnagrams = function(strs) {
-    let hash = {};
-
-    for (let i = 0; i < strs.length; i++) {
-        let str = strs[i];
-        let arr = new Array(26).fill(0);
-
-        for (let j = 0; j < str.length; j++) {
-            arr[str.charCodeAt(j) - 97]++;
-        }
-        console.log(`arr-${i}: ${arr}`);
-
-        let hashKey = arr.join('');
-        if (!hash[hashKey]) {
-            hash[hashKey] = [str];
-        } else {
-            let temp = hash[hashKey];
-            temp.push(str);
-            hash[hashKey] = temp;
-        }
-        console.log(`hash-${i}: ${hash}`);
-    }
-    return [...Object.values(hash)];
 };
 
 console.log(groupAnagrams(["eat", "tea", "tan", "ate", "nat", "bat"]))

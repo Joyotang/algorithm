@@ -42,4 +42,23 @@ var preorderTraversal = function(root) {
     return result;
 };
 
+/* -----------------------------------The next day coding.------------------------------------- */
+var preorderTraversal = function(root) {
+    let res = [];
+    let stack = [];
+
+    if (root) stack.push(root);
+
+    while (stack.length) {
+        let curNode = stack.pop();
+        res.push(curNode.val);
+
+        if (curNode.right !== null) stack.push(curNode.right);
+        if (curNode.left !== null) stack.push(curNode.left);
+    }
+    return res;
+};
+
+
+
 
