@@ -24,7 +24,7 @@ var combine = function(n, k) {
 };
 
 
-console.log(combine(4, 2))
+// console.log(combine(4, 2))
 
 
 /**
@@ -97,3 +97,26 @@ var cloneGraph = function (node) {
     }
     return newNode;
 }
+
+
+/* -----------------------------------The next day coding.------------------------------------- */
+var combine = function(n, k) {
+    let res = [];
+
+    function combineSub(start, subresult) {
+        if (subresult.length === k) {
+            res.push(subresult.slice(0));
+            return;
+        }
+
+        for (let i = start; i <= n; i++) {
+            subresult.push(i);
+            combineSub(i + 1, subresult);
+            subresult.pop();
+        }
+    }
+    combineSub(1, []);
+    return res;
+};
+
+console.log(combine(4, 2))
