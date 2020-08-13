@@ -58,15 +58,47 @@ var addStrings = function (num1, num2) {
     let carry = 0;
     let ans = [];
 
-    while (i >= 0 || j >= 0 || carry != 0) {
-        let x = i >= 0 ? num1.charAt(i) - '0' : 0;
-        let y = j >= 0 ? num2.charAt(j) - '0' : 0;
-        let res = x + y + carry;
-        ans.push(res % 10);
-        carry = Math.floor(carry / 10);
+    while (i >= 0 || j >= 0 || carry !== 0) {
+        let n1 = i >= 0 ? num1.charAt(i) - '0' : 0;
+        let n2 = j >= 0 ? num2.charAt(j) - '0' : 0;
+        let result = n1 + n2 + carry;
+        ans.push(result % 10);
+        
+        carry = Math.floor(result / 10);
         i--;
         j--;
     }
     return ans.reverse().join('');
 }
 
+
+/**
+ * @param {string} num1
+ * @param {string} num2
+ * @return {string}
+ */
+var multiply = function(num1, num2) {
+    if (num1 === '0' || num2 === '0') return '0';
+
+    let res = '0';
+
+    for (let i = num2.length - 1; i >= 0; i--) {
+        let carry = 0;
+        let temp = [];
+
+        for (let k = 0; k < num2.length - 1 - i; k++) {
+            temp.push(0);
+        }
+
+        let n2 = num2.charAt(i) - '0';
+        for (let j = num1.length - 1; j >= 0 || carry != 0; j--) {
+            let n1 = j < 0 ? 0 : num1.charAt(j) - '0';
+
+            let product = (n1 * n2 + carry) % 10;
+            temp.push(product);
+            carry = Math.floor((n1 * n2 + carry) / 10);
+        }
+        res = addStrings(res, temp.reverse().join(''));
+    }
+    return res;
+};
