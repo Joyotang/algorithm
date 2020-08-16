@@ -55,3 +55,26 @@ var isValid = function(s) {
 };
 
 console.log(isValid('(())'));
+
+
+/* -----------------------------------The next day coding.------------------------------------- */
+var isValid = function(s) {
+    let map = {
+        '(': ')',
+        '[': ']',
+        '{': '}'
+    }
+    let stack = [];
+
+    for (let i = 0; i < s.length; i++) {
+        let elem = s[i];
+        if (map[elem]) {
+            stack.push(map[elem]);
+        } else if (elem !== stack.pop()) {
+            return false;
+        }
+    }
+    return stack.length === 0;
+};
+
+

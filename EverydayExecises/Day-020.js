@@ -1,7 +1,41 @@
 /**
+ * 47. 全排列 II
+ * https://leetcode-cn.com/problems/permutations-ii/
+ * 
+ * (LeetCode超时)
  * @param {number[]} nums
  * @return {number[][]}
  */
+var permuteUnique = function(nums) {
+    let res = [];
+    let hash = {};
+    
+    function backtrack(tempList) {
+        if (tempList.length === nums.length && JSON.stringify(res).indexOf(JSON.stringify(tempList)) == -1) {
+            res.push([...tempList]);
+            return;
+        }
+    
+        for (let i = 0; i < nums.length; i++) {
+            let key = `${i}-${nums[i]}`;
+
+            if (!hash[key]) {
+                hash[key] = true;
+    
+                tempList.push(nums[i]);
+                backtrack(tempList);
+                tempList.pop();
+
+                hash[key] = false;
+            }
+        }
+    }
+    backtrack([]);
+    return res;
+};
+
+
+
 var permuteUnique = function(nums) {
     let n = nums.length;
     // 排序（升序/降序都可以），为了剪枝方便
@@ -9,17 +43,14 @@ var permuteUnique = function(nums) {
     let res = [];
     let hash = {};
     
-    function backtrack(mark, tempList) {
+    function backtrack(tempList) {
         if (tempList.length === n) {
-            console.log(`${mark}-tempList`, tempList)
             res.push([...tempList]);
             return;
         }
-        console.log('mark:', mark)
     
         for (let i = 0; i < nums.length; i++) {
 
-            console.log(`${mark}-${i}`, i)
             // 剪枝条件：
             // i > 0 是为了保证 nums[i - 1] 有意义；
             // !hash[i-1] 是因为 hash[i-1] 在回退的过程中被撤下了选择
@@ -28,16 +59,15 @@ var permuteUnique = function(nums) {
             hash[i] = true;
     
             tempList.push(nums[i]);
-            backtrack(`in`, tempList);
+            backtrack(tempList);
             tempList.pop();
 
             hash[i] = false;
         }
     }
-    backtrack('start', []);
+    backtrack([]);
     return res;
 };
-
 
 
 console.log(permuteUnique([1,1,2]))
