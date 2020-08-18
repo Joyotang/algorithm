@@ -82,3 +82,18 @@ function recursion(root) {
 
     return Math.abs(left - right) < 2 ? Math.max(left, right) + 1 : -1;
 }
+
+/* -----------------------------------The next day coding.------------------------------------- */
+var maxProfit = function(prices) {
+    let maxProfit = 0;
+    for (let i = 0; i < prices.length; i++) {
+        if (prices[i + 1] > prices[i]) {
+            maxProfit += prices[i + 1] - prices[i];
+        }
+    }
+    return maxProfit;
+}
+
+
+
+
