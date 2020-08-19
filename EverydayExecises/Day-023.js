@@ -62,3 +62,21 @@ var canJump = function(nums) {
 };
 
 console.log(canJump([3,2,1,0,4]))
+
+
+/* -----------------------------------The next day coding.------------------------------------- */
+/**
+ * 跳跃游戏：贪心算法（思路一）
+ * @param {number[]} nums
+ * @return {boolean}
+ */
+var canJump = function(nums) {
+    let n = nums.length;
+    let endReachable = n - 1;
+    for (let i = n - 1; i >= 0; i--) {
+        if (i + nums[i] >= endReachable) {
+            endReachable = i;
+        }
+    }
+    return endReachable === 0;
+};
