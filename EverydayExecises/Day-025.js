@@ -50,3 +50,6 @@ var updateBoard = function(board, click) {
     return board;
 };
 
+
+let board = [["E","E","E","E","E"],["E","E","M","E","E"],["E","E","E","E","E"],["E","E","E","E","E"]];
+console.log(updateBoard(board, [3, 0]))
