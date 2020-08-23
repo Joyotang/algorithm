@@ -29,3 +29,29 @@ var searchMatrix = function(matrix, target) {
     }
     return false;
 };
+
+
+/* -----------------------------------The next day coding.------------------------------------- */
+var searchMatrix = function(matrix, target) {
+    let m = matrix.length;
+    if (!m) return false;
+    let n = matrix[0].length;
+
+    let left = 0;
+    let right = m * n - 1;
+    while (left <= right) {
+        let pivotIdx = (left + right) >> 1;
+        let row = Math.floor(pivotIdx / n);
+        let col = pivotIdx % n;
+
+        let pivotElement = matrix[row][col];
+        if (pivotElement === target) return true;
+
+        if (target < pivotElement) {
+            right = pivotIdx - 1;
+        } else {
+            left = pivotIdx + 1;
+        }
+    }
+    return false;
+};
