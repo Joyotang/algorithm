@@ -8,7 +8,7 @@
 var letterCombinations = function(digits) {
     let combinations = [];
     if (!digits.length) return combinations;
-    
+
     let phoneMap = {
         2: 'abc',  3: 'def',
         4: 'ghi',  5: 'jkl', 6: 'mno',
@@ -75,3 +75,32 @@ var letterCombinations = function(digits) {
 
 
 console.log(letterCombinations('23'));
+
+/* -----------------------------------The next day coding.------------------------------------- */
+var letterCombinations = function(digits) {
+    let res = [];
+    if (!digits.length) return res;
+
+    let phoneMap = {
+        2: 'abc',  3: 'def',
+        4: 'ghi',  5: 'jkl', 6: 'mno',
+        7: 'pqrs', 8: 'tuv', 9: 'wxyz'
+    }
+
+    function backtrack(index, tempList) {
+        if (index === digits.length) {
+            res.push(tempList.join(''));
+        } else {
+            let digit = digits.charAt(index);
+            let letters = phoneMap[digit];
+
+            for (let i = 0; i < letters.length; i++) {
+                tempList.push(letters[i]);
+                backtrack(index + 1, tempList);
+                tempList.pop();
+            }
+        }
+    }
+    
+    return res;
+};
