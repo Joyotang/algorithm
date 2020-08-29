@@ -47,11 +47,13 @@ function threeSum(nums) {
 
     for (let k = 0; k < length - 2; k++) {
         if (nums[k] > 0) break;
+        if (k > 0 && nums[k] === nums[k - 1]) continue; // 去重
+
         let start = k + 1;
         let end = length - 1;
-        let sum = nums[k] + nums[start] + nums[end];
 
         while (start < end) {
+            let sum = nums[k] + nums[start] + nums[end];
             if (sum < 0) {
                 start++;
             } else if (sum > 0) {
@@ -70,37 +72,35 @@ function threeSum(nums) {
 }
 
 
-const threeSum = function (nums) {
+
+var threeSum = function(nums) {
+    let res = [];
+    let n = nums.length;
     // 排序
     nums.sort((a, b) => a - b);
+    
+    for (let a = 0; a < n - 2; a++) {
+        if (nums[a] > 0) break;
+        if (a > 0 && nums[a] === nums[a - 1]) continue; // 去重
 
-    let res = [];
-    let length = nums.length;
-    // 定义双指针
-    for (let k = 0; k < length - 2; k++) {
-        if (nums[k] > 0) break;
+        let b = a + 1;
+        let c = n - 1;
 
-        let i = k + 1;
-        let j = length - 1;
-        let sum = nums[k] + nums[i] + nums[j];
-
-        while(i < j) {
+        while (b < c) {
+            let sum = nums[a] + nums[b] + nums[c];
             if (sum < 0) {
-                i++;
+                b++;
             } else if (sum > 0) {
-                j--;
+                c--;
             } else {
-                res.push([nums[k], nums[i], nums[j]]);
+                res.push([nums[a], nums[b], nums[c]]);
+                while (b < c && nums[b] === nums[b+1]) b++;
+                while (b < c && nums[c] === nums[c-1]) c--;
 
-                while(i < j && nums[i] === nums[i+1]) i++;
-                while(i < j && nums[j] === nums[j-1]) j--;
-
-                i++;
-                j--;
+                b++;
+                c--;
             }
         }
     }
     return res;
 }
-
-

@@ -1,16 +1,17 @@
-var plusOne = function(digits) {
-    let n = digits.length;
-    for (let i = n - 1; i >= 0; i--) {
-        digits[i]++;
-        digits[i] = digits[i] % 10;
-        if (digits[i] !== 0) {
-            return digits;
+var shortestPalindrome = function(s) {
+    let n = s.length;
+    if (!n) return s;
+    let revStrs = s.split('').reverse().join('');
+
+    for (let i = 0; i < n; i++) {
+        debugger
+        if (s.slice(0, n - i) === revStrs.slice(i)) {
+            debugger
+            return revStrs.slice(0, i) + s;
         }
     }
-    digits.unshift(1);
-    return digits;
 };
 
 
-
-console.log(plusOne([8, 8]))
+// console.log(shortestPalindrome('aacecaaa'))
+console.log(shortestPalindrome('1243'))
