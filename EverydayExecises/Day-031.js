@@ -101,6 +101,6 @@ var letterCombinations = function(digits) {
             }
         }
     }
-    
+    backtrack(0, []);
     return res;
 };
