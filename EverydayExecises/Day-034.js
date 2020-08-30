@@ -68,3 +68,54 @@ var fourSum = function(nums, target) {
     }
     return res;
 };
+
+
+
+/* -----------------------------------The next day coding.------------------------------------- */
+var shortestPalindrome = function(s) {
+    let n = s.length;
+    if (!n) return s;
+    let revStrs = s.split('').reverse().join('');
+
+    for (let i = 0; i < n; i++) {
+        if (s.slice(0, n - i) === revStrs.slice(i)) {
+            return revStrs.slice(0, i) + s;
+        }
+    }
+};
+
+
+
+var fourSum = function(nums, target) {
+    let res = [];
+    let n = nums.length;
+    if (!n || n < 4) return res;
+    nums.sort((a, b) => a - b);
+
+    var a, b, c, d;
+    for (a = 0; a < n - 3; a++) {
+        if (a > 0 && nums[a] === nums[a - 1]) continue;
+
+        for (b = a + 1; b < n - 2; b++) {
+            if (b > a + 1 && nums[b] === nums[b - 1]) continue;
+            c = b + 1;
+            d = n - 1;
+            
+            while (c < d) {
+                let sum = nums[a] + nums[b] + nums[c] + nums[d];
+                if (sum < target) {
+                    c++;
+                } else if (sum > target) {
+                    d--;
+                } else {
+                    res.push([nums[a], nums[b], nums[c], nums[d]]);
+                    while (c < d && nums[c] === nums[c+1]) c++;
+                    while (c < d && nums[d] === nums[d-1]) d--;
+                    c++;
+                    d--;
+                }
+            }
+        }
+    }
+    return res;
+};

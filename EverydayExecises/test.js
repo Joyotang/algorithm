@@ -1,17 +1,20 @@
-var shortestPalindrome = function(s) {
+var reverseWords = function(s) {
     let n = s.length;
     if (!n) return s;
-    let revStrs = s.split('').reverse().join('');
+    let result = '';
+    let word = '';
 
-    for (let i = 0; i < n; i++) {
-        debugger
-        if (s.slice(0, n - i) === revStrs.slice(i)) {
-            debugger
-            return revStrs.slice(0, i) + s;
+    for (let i = n - 1; i >= 0; i--) {
+        let char = s[i];
+        if (char === ' ' && word.length) {
+            result = word + ' ' + result;
+            word = '';
+        } else {
+            word += s[i];
         }
     }
+    return (word.length ? word + ' ' + result : result).trim();
 };
 
 
-// console.log(shortestPalindrome('aacecaaa'))
-console.log(shortestPalindrome('1243'))
+console.log(reverseWords("Let's take LeetCode contest"))

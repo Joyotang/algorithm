@@ -22,3 +22,41 @@ var jump = function(nums) {
     }
     return steps;
 };
+
+
+
+
+/**
+ * @param {string} s
+ * @return {string}
+ */
+var reverseWords = function(s) {
+    let n = s.length;
+    if (!n) return s;
+    let strs = s.split(' ');
+
+    for (let i = 0; i < strs.length; i++) {
+        let word = strs[i];
+        strs[i] = word.split('').reverse().join('');
+    }
+    return strs.join(' ');
+};
+
+
+var reverseWords = function(s) {
+    let n = s.length;
+    if (!n) return s;
+    let result = '';
+    let word = '';
+
+    for (let i = s.length - 1; i > 0; i--) {
+        let char = s[i];
+        if (char == ' ' && word.length) {
+            result = word + ' ' + result;
+            word = '';
+        } else {
+            word += s[i];
+        }
+    }
+    return (word.length ? word + ' ' + result : result).trim();
+};
