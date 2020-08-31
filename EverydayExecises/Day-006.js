@@ -130,7 +130,7 @@ var margeArray = function (nums1, m, nums2, n) {
     let p = m + n - 1;
 
     while ((p1 >= 0) && (p2 >= 0)) {
-        nums1[p--] = nums1[p1] < nums2[p2] ? nums2[p1--] : nums1[p1--];
+        nums1[p--] = nums1[p1] < nums2[p2] ? nums2[p2--] : nums1[p1--];
     }
     function arrayCopy(src, srcIndex, dest, destIndex, length) {
         dest.splice(destIndex, length, ...src.slice(srcIndex, srcIndex + length))
