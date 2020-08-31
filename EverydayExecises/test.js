@@ -1,20 +1,21 @@
-var reverseWords = function(s) {
+var repeatedSubstringPattern = function(s) {
     let n = s.length;
-    if (!n) return s;
-    let result = '';
-    let word = '';
 
-    for (let i = n - 1; i >= 0; i--) {
-        let char = s[i];
-        if (char === ' ' && word.length) {
-            result = word + ' ' + result;
-            word = '';
-        } else {
-            word += s[i];
+    for (let i = 1; i * 2 <= n; i++) {
+        // 如果子集不是父集的倍数，那肯定不是重复的子字符串
+        if (n % i === 0) {
+            let match = true;
+            for (let j = i; j < n; j++) {
+                debugger
+                if (s[j] != s[j - i]) {
+                    match = false;
+                    break;
+                }
+            }
+            if (match) return true;
         }
     }
-    return (word.length ? word + ' ' + result : result).trim();
+    return false;
 };
 
-
-console.log(reverseWords("Let's take LeetCode contest"))
+console.log(repeatedSubstringPattern('aab'))
