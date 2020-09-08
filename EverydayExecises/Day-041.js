@@ -1,7 +1,7 @@
 /**
  * 60. 第k个排列
  * https://leetcode-cn.com/problems/permutation-sequence/
- * 回溯：基本版
+ * 回溯：基本版（自己一开始最笨的思路）
  * @param {number} n
  * @param {number} k
  * @return {string}
@@ -76,8 +76,9 @@ var getPermutation = function(n, k) {
 };
 
 
+
+/* -----------------------------------The next day coding.------------------------------------- */
 /**
- * TODO
  * https://leetcode-cn.com/problems/permutation-sequence/solution/shou-hua-tu-jie-jing-dian-de-dfshui-su-shu-xue-gui/
  * 
  * 60. 第k个排列
@@ -88,46 +89,48 @@ var getPermutation = function(n, k) {
  * @return {string}
  */
 var getPermutation = function(n, k) {
+    let used = new Set();
+    let groupNums = 1;
+    for (let i = 1; i <= n; i++) {
+        groupNums = groupNums * i;
+    }
     
+    function backtrack(path) {
+        let progress = path.length;
+        if (progress === n) {
+            return path.join('');
+        }
+
+        groupNums = groupNums / (n - progress);
+        
+        for (let i = 1; i <= n; i++) {
+            if (used.has(i)) continue;
+            if (k > groupNums) {
+                k = k - groupNums;
+                continue;
+            }
+            path.push(i);
+            used.add(i);
+
+            return backtrack(path);
+        }
+    }
+    return backtrack([]);
 };
-
-
-
-
 
 
 /**
- * 32. 最长有效括号
- * https://leetcode-cn.com/problems/longest-valid-parentheses/
+ * TODO
+ * https://leetcode-cn.com/problems/permutation-sequence/solution/shou-hua-tu-jie-jing-dian-de-dfshui-su-shu-xue-gui/
  * 
- * @param {string} s
- * @return {number}
+ * 60. 第k个排列
+ * https://leetcode-cn.com/problems/permutation-sequence/
+ * 数学法（阶乘） + 找规律缩小问题规模（时间复杂度：O(n^2)）
+ * @param {number} n
+ * @param {number} k
+ * @return {string}
  */
-var longestValidParentheses = function(s) {
-    let maxLen = 0;
-    let n = s.length;
-    let dp = new Array(n).fill(0);
-
-    for (let i = 1; i < n; i++) {
-        if (s[i] === ')') {
-            if (s[i - 1] === '(') {
-                if (i - 2 >= 0) {
-                    dp[i] = dp[i - 2] + 2;
-                } else {
-                    dp[i] = 2;
-                }
-            } else if (s[i - dp[i - 1] - 1] === '(') {
-                if (i - dp[i - 1] - 2 >= 0) {
-                    dp[i] = dp[i - 1] + 2 + dp[i - dp[i - 1] - 2];
-                } else {
-                    dp[i] = dp[i - 1] + 2;
-                }
-            }
-        }
-        maxLen = Math.max(maxLen, dp[i]);
-    }
-    return maxLen;
+var getPermutation = function(n, k) {
+    
 };
-
-
 

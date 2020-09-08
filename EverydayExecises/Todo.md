@@ -5,3 +5,5 @@
 * [ ] 3. 297. 二叉树的序列化与反序列化: https://leetcode-cn.com/problems/serialize-and-deserialize-binary-tree/
 * [ ] 4. 459. 重复的子字符串(KMP): https://leetcode-cn.com/problems/repeated-substring-pattern/
 * [ ] 5. 214. 最短回文串(KMP): https://leetcode-cn.com/problems/shortest-palindrome/solution/shou-hua-tu-jie-cong-jian-dan-de-bao-li-fa-xiang-d/
+* [ ] 6. 60. 第k个排列(阶乘 + 规律): https://leetcode-cn.com/problems/permutation-sequence/solution/shou-hua-tu-jie-jing-dian-de-dfshui-su-shu-xue-gui/
+* [ ] 7. 72. 编辑距离(复习):https://leetcode-cn.com/problems/edit-distance/

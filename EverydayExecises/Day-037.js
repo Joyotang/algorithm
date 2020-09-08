@@ -44,4 +44,24 @@ var PredictTheWinner = function(nums) {
 };
 
 
+var PredictTheWinner = function(nums) {
+    let n = nums.length;
+    let dp = Array.from(new Array(n), () => new Array(n));
+
+    // base case（将基本数值填充对角线）
+    for (let i = 0; i < n; i++) {
+        dp[i][i] = nums[i];
+    }
+
+    for (let i = n - 2; i >= 0; i--) {
+        for (let j = i + 1; j < n; j++) {
+            const pickI = nums[i] - dp[i + 1][j];
+            const pickJ = nums[j] - dp[i][j - 1];
+            dp[i][j] = Math.max(pickI, pickJ);
+        }
+    }
+    return dp[0][n - 1] >= 0;
+};
+
+
 

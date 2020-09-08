@@ -1,29 +1,32 @@
-var longestValidParentheses = function(s) {
-    let maxLen = 0;
-    let n = s.length;
-    let dp = new Array(n).fill(0);
-
-    for (let i = 1; i < n; i++) {
-        if (s[i] === ')') {
-            if (s[i - 1] === '(') {
-                if (i - 2 >= 0) {
-                    dp[i] = dp[i - 2] + 2;
-                } else {
-                    dp[i] = 2;
-                }
-            } else if (s[i - dp[i - 1] - 1] === '(') {
-                if (i - dp[i - 1] - 2 >= 0) {
-                    dp[i] = dp[i - 1] + 2 + dp[i - dp[i - 1] - 2];
-                } else {
-                    dp[i] = dp[i - 1] + 2;
-                }
-            }
-        }
-        maxLen = Math.max(maxLen, dp[i]);
+var getPermutation = function(n, k) {
+    let used = new Set();
+    let groupNums = 1;
+    for (let i = 1; i <= n; i++) {
+        groupNums = groupNums * i;
     }
-    return maxLen;
+    
+    function backtrack(path) {
+        let progress = path.length;
+        if (progress === n) {
+            return path.join('');
+        }
+
+        groupNums = groupNums / (n - progress);
+        
+        for (let i = 1; i <= n; i++) {
+            if (used.has(i)) continue;
+            if (k > groupNums) {
+                k = k - groupNums;
+                continue;
+            }
+            path.push(i);
+            used.add(i);
+
+            return backtrack(path);
+        }
+    }
+    return backtrack([]);
 };
 
 
-
-console.log(longestValidParentheses('(()'))
+console.log(getPermutation(3, 3))
