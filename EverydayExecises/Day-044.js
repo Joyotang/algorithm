@@ -77,3 +77,54 @@ Trie.prototype.startsWith = function(prefix) {
  * var param_2 = obj.search(word)
  * var param_3 = obj.startsWith(prefix)
  */
+
+
+ /* -----------------------------------The next day coding.------------------------------------- */
+ 
+class TrieNode {
+    constructor() {
+        this.isEnd = false;
+        this.next = {};
+    }
+}
+
+class Trie {
+    constructor() {
+        this.root = new TrieNode();
+    }
+    insert(word) {
+        if (!word) return false;
+
+        let node = this.root;
+        for (let i = 0; i < word.length; i++) {
+            if (!node.next[word[i]]) {
+                node.next[word[i]] = new TrieNode();
+            }
+            node = node.next[word[i]];
+        }
+        node.isEnd = true;
+        return true;
+    }
+    search(word) {
+        if (!word) return false;
+
+        let node = this.root;
+        for (let i = 0; i < word.length; i++) {
+            if (!node.next[word[i]]) return false;
+
+            node = node.next[word[i]];
+        }
+        return node.isEnd;
+    }
+    startsWith(prefix) {
+        if (!prefix) return false;
+
+        let node = this.root;
+        for (let i = 0; i < prefix.length; i++) {
+            if (!node.next[prefix[i]]) return false;
+              
+            node = node.next[prefix[i]];
+        }
+        return true;
+    }
+}
