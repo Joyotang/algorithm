@@ -79,8 +79,8 @@ Trie.prototype.startsWith = function(prefix) {
  */
 
 
- /* -----------------------------------The next day coding.------------------------------------- */
- 
+/* -----------------------------------The next day coding.------------------------------------- */
+
 class TrieNode {
     constructor() {
         this.isEnd = false;
