@@ -34,30 +34,29 @@ var combinationSum2 = function(candidates, target) {
 
 
 /**
- * @param {character[][]} board
- * @return {boolean}
+ * 216. 组合总和 III
+ * https://leetcode-cn.com/problems/combination-sum-iii/
+ * 
+ * @param {number} k
+ * @param {number} n
+ * @return {number[][]}
  */
-var isValidSudoku = function(board) {
-    // 三个方向记录
-    let rows = {};
-    let cols = {};
-    let boxes = {};
+var combinationSum3 = function(k, n) {
+    let res = [];
 
-    // 遍历数独
-    for (let i = 0; i < 9; i++) {
-        for (let j = 0; j < 9; j++) {
-            let num = board[i][j];
-            // 子数独序号
-            let boxIndex = parseInt((i / 3)) * 3 + parseInt(j / 3);
-            if (num != '.') {
-                if (rows[`${i}-${num}`] || cols[`${j}-${num}`] || boxes[`${boxIndex}-${num}`]) return false;
+    function backtrack(start, n, path) {
+        if (n < 0) return;
+        if (path.length === k && n === 0) {
+            return res.push([...path]);
+        }
 
-                // 以各自方向 + 不能出现重复的数字 组成唯一键值，若出现第二次，即为重复
-                rows[`${i}-${num}`] = true;
-                cols[`${j}-${num}`] = true;
-                boxes[`${boxIndex}-${num}`] = true;
-            }
+        for (let i = start; i <= 9; i++) {
+            path.push(i);
+            backtrack(i + 1, n - i, path);
+            path.pop();
         }
     }
-    return true;
+    
+    backtrack(1, n, []);
+    return res;
 };
