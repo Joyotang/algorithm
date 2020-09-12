@@ -19,7 +19,7 @@ var binaryTreePaths = function(root) {
         if (node.left == null && node.right == null) {
             res.push(path.join('->'));
         }
-        
+
         if (node.left) backtrack(node.left, path);
         if (node.right) backtrack(node.right, path);
 
@@ -37,9 +37,10 @@ var binaryTreePaths = function(root) {
     if (!root) return res;
 
     function backtrack(root, path) {
+        path.push(node.val);
+
         if (!root.left || !root.right) {
             res.push(path.join('->'));
-            return;
         }
 
         if (root.left) backtrack(root.left, path);
