@@ -26,3 +26,6 @@ var isValidSudoku = function(board) {
     }
     return true;
 };
+
+/* -----------------------------------The next day coding.------------------------------------- */
+

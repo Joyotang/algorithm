@@ -45,3 +45,44 @@ const exist = (board, word) => {
     }
     return false; // 怎么样都没有返回true，则返回false
 };
+
+
+/* -----------------------------------The next day coding.------------------------------------- */
+/**
+ * @param {character[][]} board
+ * @param {string} word
+ * @return {boolean}
+ */
+const exist = (board, word) => {
+    let m = board.length;
+    let n = board[0].length;
+    let used = Array.from(new Array(m), () => new Array(n));
+
+    function canFind(row, col, i) {
+        if (i > word.length - 1) return true;
+
+        if (row < 0 || row >= m || col < 0 || col >= n) return false;
+
+        if (used[row][col] || board[row][col] != word[i]) return false;
+
+        used[row][col] = true;
+        const canFindRest = 
+            canFind(row + 1, col, i + 1) ||
+            canFind(row - 1, col, i + 1) || 
+            canFind(row, col + 1, i + 1) || 
+            canFind(row, col - 1, i + 1);
+        
+        if (canFindRest) return true;
+        used[row][col] = false;
+
+        return false;
+    }
+
+    for (let i = 0; i < m; i++) {
+        for (let j = 0; j < n; j++) {
+            if (board[j][j] === word[0] && canFind(i, j, 0)) return true;
+        }
+    }
+
+    return false;
+};
