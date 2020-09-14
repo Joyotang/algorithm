@@ -1,4 +1,7 @@
 /**
+ * 36. 有效的数独
+ * https://leetcode-cn.com/problems/valid-sudoku/
+ * 
  * @param {character[][]} board
  * @return {boolean}
  */
@@ -28,4 +31,24 @@ var isValidSudoku = function(board) {
 };
 
 /* -----------------------------------The next day coding.------------------------------------- */
+var isValidSudoku = function(board) {
+    // 三个方向记录
+    let rows = {};
+    let cols = {};
+    let boxes = {};
 
+    for (let i = 0; i < board.length; i++) {
+        for (let j = 0; j < board[0].length; j++) {
+            let num = board[i][j];
+            let boxIndex = parseInt(i / 3) * 3 + parseInt(j / 3);
+            if (num != '.') {
+                if (rows[`${i}-${num}`] || cols[`${j}-${num}`] || boxes[`${boxIndex}-${num}`]) return false;
+
+                rows[`${i}-${num}`] = true;
+                cols[`${j}-${num}`] = true;
+                boxes[`${boxIndex}-${num}`] = true;
+            }
+        }
+    }
+    return true;
+};
