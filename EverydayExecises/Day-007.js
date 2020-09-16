@@ -18,7 +18,7 @@ var flatten = function (root) {
     while (current !== null) {
         if (current.left !== null) {
             let next = current.left;
-            pre = next;
+            let pre = next;
             while (pre.right !== null) {
                 pre = pre.right;
             }
