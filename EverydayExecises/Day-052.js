@@ -116,3 +116,45 @@ var hammingWeight = function(n) {
     }
     return count;
 };
+
+/* -----------------------------------The next day coding.------------------------------------- */
+/**
+ * 226. 翻转二叉树
+ * 方法二：迭代
+ * @param {TreeNode} root
+ * @return {TreeNode}
+ */
+var invertTree = function(root) {
+    if (!root) return root;
+    let queue = [root];
+
+    while (queue.length) {
+        let curNode = queue.shift();
+        let temp = curNode.left;
+        curNode.left = curNode.right;
+        curNode.right = temp;
+
+        if (curNode.left) queue.push(curNode.left);
+        if (curNode.right) queue.push(curNode.right);
+    }
+
+    return root;
+};
+
+
+/**
+ * 191. 位1的个数
+ * https://leetcode-cn.com/problems/number-of-1-bits/
+ * 方法二：位运算法
+ * 
+ * @param {number} n - a positive integer
+ * @return {number}
+ */
+var hammingWeight = function(n) {
+    let count = 0;
+    while (n) {
+        count++;
+        n = n & (n - 1);
+    }
+    return count;
+};
