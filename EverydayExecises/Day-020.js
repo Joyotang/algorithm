@@ -88,15 +88,15 @@ var permuteUnique = function(nums) {
 
         for (let i = 0; i < nums.length; i++) {
             // 剪枝
-            if (nums[i] || i > 0 && nums[i-1] === nums[i] && nums[i-1] === false) continue;
+            if (hash[i] || i > 0 && nums[i-1] === nums[i] && hash[i-1] === false) continue;
 
-            hash[nums[i]] = true;
+            hash[i] = true;
 
             tempList.push(nums[i]);
             backtrack(tempList);
             tempList.pop();
 
-            hash[nums[i]] = false;  
+            hash[i] = false;  
         }
     }
     backtrack([])
