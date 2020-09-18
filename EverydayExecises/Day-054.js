@@ -1,32 +1,17 @@
 /**
- * @param {number[]} nums
- * @return {number[][]}
+ * @param {number} n
+ * @return {boolean}
  */
-var permuteUnique = function(nums) {
-    let res = [];
-    let n = nums.length;
-    if (!n) return res;
-    nums.sort((a, b) => a -b);
-    let hash = {};
-
-    const backtrack = (path) => {
-        if (path.length === n) {
-            res.push([...path]);
-            return;
-        }
-
-        for (let i = 0; i < n; i++) {
-            if (hash[i] || i > 0 && hash[i - 1] === hash[i] && hash[i - 1] === false) continue;
-
-            hash[nums[i]] = true;
-            path.push(nums[i]);
-            backtrack(path);
-
-            path.pop();
-            hash[nums[i]] = false;
-        }
+var isPowerOfTwo = function(n) {
+    while (n % 2 == 0) {
+        n = n / 2;
     }
-
-    backtrack([])
-    return res;
+    return n == 1;
 };
+
+
+
+var isPowerOfTwo = function(n) {
+    return n > 0 && (n & (n-1)) == 0;
+};
+
