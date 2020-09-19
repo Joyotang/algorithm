@@ -41,6 +41,7 @@ var averageOfLevels = function(root) {
         for (let i = 0; i < levelSize; i++) {
             let curNode = queue.shift();
             levelSum += curNode.val;
+            
             if (curNode.left) queue.push(curNode.left);
             if (curNode.right) queue.push(curNode.right);
         }
