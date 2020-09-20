@@ -1,47 +1,22 @@
-var invertTree = function(root) {
-    if (!root) return root;
-    let queue = [root];
+/**
+ * @param {number[]} nums
+ * @return {number[][]}
+ */
+var subsets = function (nums) {
+    let res = [];
 
-    while (queue.length) {
-        const curNode = queue.shift();
-        let temp = curNode.left;
-        curNode.left = curNode.right;
-        curNode.right = temp;
+    const backtrack = (start, path) => {
+        res.push([...path]);
 
-        if (curNode.left) queue.push(curNode.left);
-        if (curNode.right) queue.push(curNode.right);
+        for (let i = start; i < nums.length; i++) {
+            path.push(nums[i]);
+            backtrack(i + 1, path);
+            path.pop();
+        }
     }
-    return root;
+
+    backtrack(0, []);
+    return res;
 };
 
-const binaryTree = {
-    val: 4,
-    left: {
-        val: 2,
-        left: {
-            val: 1,
-            left: null,
-            right: null
-        },
-        right: {
-            val: 3,
-            left: null,
-            right: null
-        }
-    },
-    right: {
-        val: 7,
-        left: {
-            val: 6,
-            left: null,
-            right: null
-        },
-        right: {
-            val: 9,
-            left: null,
-            right: null
-        }
-    }
-}
-
-console.log(invertTree(binaryTree))
+console.log(subsets([1, 2, 3]));
