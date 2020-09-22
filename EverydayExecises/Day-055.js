@@ -53,3 +53,22 @@ var sumOfLeftLeaves = function(root) {
     }
     return sum;
 };
+
+/* -----------------------------------The next day coding.------------------------------------- */
+var sumOfLeftLeaves = function(root) {
+    if (!root) return 0;
+    let sum = 0;
+    let queue = [root];
+
+    while (queue.length) {
+        let currNode = queue.shift();
+        if (currNode.left) {
+            if (currNode.left.left === null && currNode.left.right === null) {
+                sum += currNode.left.val;
+            }
+            queue.push(currNode.left);
+        }
+        if (currNode.right) queue.push(currNode.right);
+    }
+    return sum;
+};

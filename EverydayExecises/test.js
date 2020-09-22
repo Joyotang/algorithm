@@ -7,6 +7,8 @@ var subsets = function (nums) {
 
     const backtrack = (start, path) => {
         res.push([...path]);
+        console.log('-------start:', start)
+        console.log('-------path:', path);
 
         for (let i = start; i < nums.length; i++) {
             path.push(nums[i]);
@@ -18,5 +20,6 @@ var subsets = function (nums) {
     backtrack(0, []);
     return res;
 };
+
 
 console.log(subsets([1, 2, 3]));
