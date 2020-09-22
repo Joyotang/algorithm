@@ -1,4 +1,7 @@
 /**
+ * 538. 把二叉搜索树转换为累加树
+ * https://leetcode-cn.com/problems/convert-bst-to-greater-tree/
+ * 
  * Definition for a binary tree node.
  * function TreeNode(val) {
  *     this.val = val;
@@ -76,4 +79,18 @@ var firstUniqChar = function(s) {
     }
     if (result.size === 0) return -1;
     return result.values().next().value;
+};
+
+/* -----------------------------------The next day coding.------------------------------------- */
+var convertBST = function(root) {
+    let num = 0;
+    const dfs = (root) => {
+        if (!root) return null;
+        dfs(root.right);
+        root.val = root.val + num;
+        num = root.val;
+        dfs(root.left);
+    }
+    dfs(root)
+    return root;
 };
