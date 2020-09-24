@@ -1,4 +1,7 @@
 /**
+ * 617. 合并二叉树
+ * https://leetcode-cn.com/problems/merge-two-binary-trees/
+ * 
  * Definition for a binary tree node.
  * function TreeNode(val) {
  *     this.val = val;
@@ -21,11 +24,24 @@ var mergeTrees = function(t1, t2) {
 
 
 
+/* -----------------------------------The next day coding.------------------------------------- */
+var mergeTrees = function(t1, t2) {
+    if (t1 === null) return t2;
+    if (t2 === null) return t1;
+    t1.left = mergeTrees(t1.left, t2.left);
+    t1.right = mergeTrees(t1.right, t2.right);
+    t1.val += t2.val;
+    return t1;
+};
+
+
+
 
 
 /**
  * 63. 不同路径 II
  * https://leetcode-cn.com/problems/unique-paths-ii/
+ * 解法一：动态规划（从 起点 往 终点 递推）
  * 
  * @param {number[][]} obstacleGrid
  * @return {number}
@@ -61,6 +77,7 @@ var uniquePathsWithObstacles = function(obstacleGrid) {
 
 
 /* -----------------------------------The next day coding.------------------------------------- */
+// 解法一：动态规划（从 起点 往 终点 递推）
 const uniquePathsWithObstacles = function (obstacleGrid) {
     if (obstacleGrid[0][0] === 1) return 0;
 
@@ -95,22 +112,29 @@ const uniquePathsWithObstacles = function (obstacleGrid) {
 }
 
 
-
+/**
+ * 63. 不同路径 II
+ * https://leetcode-cn.com/problems/unique-paths-ii/
+ * 解法二：动态规划（从 终点 往 起点 递推）
+ * 
+ * @param {number[][]} obstacleGrid
+ * @return {number}
+ */
 var uniquePathsWithObstacles = function(obstacleGrid) {
     if (obstacleGrid[0][0] === 1) return 0;
 
     let m = obstacleGrid.length;
     let n = obstacleGrid[0].length;
     let dp = Array.from(new Array(m), () => new Array(n));
-    // dp[0][0] = 1;
+    dp[m - 1][n - 1] = Number(!obstacleGrid[m - 1][n - 1]);
 
-    // 最右边一列
-    for (let i = m - 1; i >= 0; i--) {
+    // 初始化最右边一列
+    for (let i = m - 2; i >= 0; i--) {
         dp[i][n - 1] = obstacleGrid[i][n - 1] === 1 || dp[i + 1][n - 1] === 0 ? 0 : 1;
     }
 
-    // 最底下一行
-    for (let j = n - 1; j >= 0; j--) {
+    // 初始化最底下一行
+    for (let j = n - 2; j >= 0; j--) {
         dp[m - 1][j] = obstacleGrid[m - 1][j] === 1 || dp[m - 1][j + 1] === 0 ? 0 : 1;
     }
 
@@ -126,9 +150,19 @@ var uniquePathsWithObstacles = function(obstacleGrid) {
     return dp[0][0];
 };
 
+// let board = [
+//     [0, 0, 0, 0],
+//     [0, 1, 0, 1],
+//     [0, 0, 0, 0],
+// ]
+
+// const board = [
+//     [0,0],
+//     [1,1],
+//     [0,0]
+// ]
+
 let board = [
-    [0, 0, 0, 0],
-    [0, 1, 0, 1],
-    [0, 0, 0, 0],
+    [0, 1]
 ]
 console.log(uniquePathsWithObstacles(board))
