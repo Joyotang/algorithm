@@ -78,3 +78,29 @@ var buildTree = function(inorder, postorder) {
 
     return helper(0, inorder.length - 1, 0, postorder.length - 1);
 };
+
+
+/* -----------------------------------The next day coding.------------------------------------- */
+var buildTree = function(inorder, postorder) {
+    let map = {};
+
+    for (let i = 0; i < inorder.length; i++) {
+        map[inorder[i]] = i;
+    }
+
+    const helper = (iStart, iEnd, pStart, pEnd) => {
+        if (iStart > iEnd || pStart > pEnd) return null;
+
+        const rootVal = postorder[pEnd];
+        const root = new TreeNode(rootVal);
+
+        let mid = map[rootVal];
+        let leftNodeNum = mid - iStart;
+
+        root.left = helper(iStart, mid - 1, pStart, pStart + leftNodeNum - 1);
+        root.right = helper(mid + 1, iEnd, pStart + leftNodeNum, pEnd - 1);
+        return root;
+    }
+
+    return helper(0, inorder.length - 1, 0, postorder.length - 1);
+};
