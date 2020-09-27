@@ -1,27 +1,60 @@
-const buildTree = (inorder, postorder) => {
-    const map = {};
-    for (let i = 0; i < inorder.length; i++) {
-        map[inorder[i]] = i;
+// var lowestCommonAncestor = function(root, p, q) {
+//     if (!root || root === p || root === q) return root;
+//     const left = lowestCommonAncestor(root.left, p, q);
+//     const right = lowestCommonAncestor(root.right, p, q);
+//     if (!left) return right;
+//     if (!right) return left;
+//     return root;
+// };
+
+const lowestCommonAncestor = (root, p, q) => {
+    if (p < root.val && q < root.val) {
+        return lowestCommonAncestor(root.left, p, q);
     }
-
-    const helper = (iStart, iEnd, pStart, pEnd) => {
-        if (pStart > pEnd || iStart > iEnd) {
-            return null;
-        }
-        const rootVal = postorder[pEnd];
-        const mid = map[rootVal]
-        const leftNodeNum = mid - iStart
-
-        const root = new TreeNode(rootVal);
-        root.left = helper(iStart, mid - 1, pStart, pStart + leftNodeNum - 1)
-        root.right = helper(mid + 1, iEnd, pStart + leftNodeNum, pEnd - 1)
-
-        return root
-    };
-
-    return helper(0, inorder.length - 1, 0, postorder.length - 1)
+    if (p > root.val && q > root.val) {
+        return lowestCommonAncestor(root.right, p, q);
+    }
+    return root;
 };
+  
 
 
+const binaryTree = {
+    val: 6,
+    left: {
+        val: 2,
+        left: {
+            val: 0,
+            left: null,
+            right: null
+        },
+        right: {
+            val: 4,
+            left: {
+                val: 3,
+                left: null,
+                right: null
+            },
+            right: {
+                val: 5,
+                left: null,
+                right: null
+            }
+        }
+    },
+    right: {
+        val: 8,
+        left: {
+            val: 7,
+            left: null,
+            right: null
+        },
+        right: {
+            val: 9,
+            left: null,
+            right: null
+        }
+    }
+}
 
-// console.log(uniquePathsWithObstacles(board));
+console.log(lowestCommonAncestor(binaryTree, 2, 8));
