@@ -1,4 +1,20 @@
 /**
+ * 151. 翻转字符串里的单词
+ * https://leetcode-cn.com/problems/reverse-words-in-a-string/
+ * 
+ * @param {string} s
+ * @return {string}
+ */
+var reverseWords = function(s) {
+    return s.trim().split(/\s+/).reverse().join(' ');
+};
+
+
+
+/**
+ * 917. 仅仅反转字母
+ * https://leetcode-cn.com/problems/reverse-only-letters/
+ * 
  * @param {string} S
  * @return {string}
  */
@@ -26,6 +42,3 @@ function isLetter(s) {
     if (/[a-zA-Z]/.test(s)) return true;
     return false;
 }
-
-
-console.log(reverseOnlyLetters('ab-cd'))
