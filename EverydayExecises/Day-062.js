@@ -60,3 +60,26 @@ var pathSum = function(root, sum) {
     return res;
 };
 
+/* -----------------------------------The next day coding.------------------------------------- */
+var pathSum = function(root, sum) {
+    let res = [];
+
+    const backtrack = (root, sum, path) => {
+        if (!root) return;
+
+        path.push(root.val);
+        sum -= root.val;
+        
+        if (!root.left && !root.right && sum === 0) {
+            res.push([...path]);
+        }
+        backtrack(root.left, sum, path);
+        backtrack(root.right, sum, path);
+
+        path.pop();
+    }
+
+    backtrack(root, sum, []);
+    return res;
+};
+
