@@ -1,5 +1,8 @@
 /**
+ * 94. 二叉树的中序遍历
+ * https://leetcode-cn.com/problems/binary-tree-inorder-traversal/
  * 时间复杂度分析：O(n)
+ * 
  * Definition for a binary tree node.
  * function TreeNode(val) {
  *     this.val = val;
@@ -7,7 +10,7 @@
  * }
  */
 /**
- * 基于递归的遍历
+ * 方法一：递归 - 基于递归的遍历
  * @param {TreeNode} root
  * @return {number[]}
  */
@@ -25,7 +28,7 @@ var inorderTraversal = function(root) {
 };
 
 
-// 基于栈的遍历
+// 方法二：迭代 - 基于栈的遍历
 var inorderTraversal = function(root) {
     let stack = [];
     let result = [];

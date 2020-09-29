@@ -1,8 +1,8 @@
 /**
- * 时间复杂度分析：O(n)
- * 144. 二叉树的前序遍历
- * https://leetcode-cn.com/problems/binary-tree-preorder-traversal/
+ * 145. 二叉树的后序遍历
+ * https://leetcode-cn.com/problems/binary-tree-postorder-traversal/
  * 
+ * 时间复杂度分析：O(n)
  * Definition for a binary tree node.
  * function TreeNode(val) {
  *     this.val = val;
@@ -14,36 +14,35 @@
  * @param {TreeNode} root
  * @return {number[]}
  */
-var preorderTraversal = function(root) {
+var postorderTraversal = function(root) {
     let result = [];
-
+    
     function helper(node) {
         if (!node) return;
-        result.push(node.val);
         helper(node.left);
         helper(node.right);
+        result.push(node.val);
     }
-
+    
     helper(root);
+
     return result;
 };
 
+
 // 方法二：迭代 - 基于栈的遍历
-var preorderTraversal = function(root) {
-    let result = [];
+var postorderTraversal = function(root) {
+    let res = [];
     let stack = [];
 
-    if (root) stack.push(root);
-
-    while (stack.length) {
-        let curNode = stack.pop();
-        result.push(curNode.val);
-
-        if (curNode.right !== null) stack.push(curNode.right);
-        if (curNode.left !== null) stack.push(curNode.left);
+    while (root != null || stack.length) {
+        res.unshift(root.val);
+        if (root.left) stack.push(root.left);
+        if (root.right) stack.push(root.right);
+        root = stack.pop();
     }
-    
-    return result;
+
+    return res;
 };
 
 
@@ -74,4 +73,4 @@ const binaryTree = {
 }
 
 
-console.log(preorderTraversal(binaryTree))
+console.log(postorderTraversal(binaryTree))
