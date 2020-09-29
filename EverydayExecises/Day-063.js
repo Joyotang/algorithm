@@ -100,3 +100,29 @@ const binaryTree = {
 }
 
 console.log(connect(binaryTree));
+
+
+/* -----------------------------------The next day coding.------------------------------------- */
+var connect = function(root) {
+    if (!root) return null;
+    let curNode = root;
+
+    while (curNode != null) {
+        let dummy = new Node(0);
+        let pre = dummy;
+
+        while (curNode != null) {
+            if (curNode.left) {
+                pre.next = curNode.left;
+                pre = pre.next;
+            }
+            if (curNode.right) {
+                pre.next = curNode.right;
+                pre = pre.next;
+            }
+            curNode = curNode.next;
+        }
+        curNode = dummy.next;
+    }
+    return root;
+};
