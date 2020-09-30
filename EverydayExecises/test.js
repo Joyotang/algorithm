@@ -1,31 +1,39 @@
 /**
- * @param {string} S
+ * @param {string} s
  * @return {string}
  */
-var reverseOnlyLetters = function(s) {
-    let stackLettes = [];
+var longestPalindrome = function(s) {
+    let n = s.length;
+    if (n < 2) return s;
 
-    for (let i = 0; i < s.length; i++) {
-        if (isLetter(s[i])) {
-            stackLettes.push(s[i]);
-        }
+    let begin = 0;
+    let maxLen = 1;
+
+    let dp = Array.from(new Array(n), () => new Array(n));
+    for (let i = 0; i < n; i++) {
+        dp[i][i] = true;
     }
 
-    let strArr = [];
-    for (let i = 0; i < s.length; i++) {
-        if (isLetter(s[i])) {
-            strArr.push(stackLettes.pop());
-        } else {
-            strArr.push(s[i]);
+    for (let j = 1; j < n; j++) {
+        for (let i = 0; i < j; i++) {
+            if (s[i] != s[j]) {
+                dp[i][j] = false;
+            } else {
+                if (j - i < 3) {
+                    dp[i][j] = true;
+                } else {
+                    dp[i][j] = dp[i + 1][j - 1];
+                }
+            }
+
+            if (dp[i][j] && j - i + 1 > maxLen) {
+                maxLen = j - i + 1;
+                begin = i;
+            }
         }
     }
-    return strArr.join('');
+    return s.substring(begin, begin + maxLen);
 };
 
-function isLetter(s) {
-    if (/[a-zA-Z]/.test(s)) return true;
-    return false;
-}
 
-
-console.log(reverseOnlyLetters('ab-cd'))
+console.log(longestPalindrome('babad'))

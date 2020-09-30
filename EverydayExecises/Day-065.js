@@ -1,4 +1,6 @@
 /**
+ * 145. 二叉树的后序遍历
+ * https://leetcode-cn.com/problems/binary-tree-postorder-traversal/
  * Definition for a binary tree node.
  * function TreeNode(val) {
  *     this.val = val;
@@ -46,30 +48,22 @@ var postorderTraversal = function(root) {
 };
 
 
-
-
+/* -----------------------------------The next day coding.------------------------------------- */
 /**
- * 112. 路径总和
- * https://leetcode-cn.com/problems/path-sum/
- * 
- * Definition for a binary tree node.
- * function TreeNode(val) {
- *     this.val = val;
- *     this.left = this.right = null;
- * }
- */
-/**
+ * 方法二：迭代
  * @param {TreeNode} root
- * @param {number} sum
- * @return {boolean}
+ * @return {number[]}
  */
-var hasPathSum = function(root, sum) {
-    const dfs = (root, sum) => {
-        if (!root) return false;
-        sum -= root.val;
+var postorderTraversal = function(root) {
+    let res = [];
+    let stack = [];
 
-        if (!root.left && !root.right && sum === 0) return true;
-        return dfs(root.left, sum) || dfs(root.right, sum);
+    while (root != null || stack.length) {
+        res.unshift(root.val);
+        if (root.left) stack.push(root.left);
+        if (root.right) stack.push(root.right);
+        root = stack.pop();
     }
-    return dfs(root, sum);
+
+    return res;
 };
