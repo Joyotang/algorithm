@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+        }
+
+        #taskContainer {
+            border: 2px solid #eee;
+            padding: 15px;
+            margin: 10px 0;
+            min-height: 100px;
+        }
+
+        .task {
+            display: inline-block;
+            padding: 5px 10px;
+            margin: 3px;
+            background: #f0f0f0;
+            border-radius: 3px;
+            transition: all 0.3s;
+        }
+
+        .processed {
+            background: #a0e0a0;
+        }
+
+        #status {
+            padding: 10px;
+            background: #e0e0ff;
+            margin: 10px 0;
+        }
+
+        button {
+            margin: 5px;
+            padding: 8px 15px;
+        }
+    </style>
+</head>
+
+<body>
+    <button onclick="addTasks(20)">添加20个任务</button>
+    <button onclick="startProcessing()">开始处理</button>
+    <div id="status">状态: 等待任务</div>
+    <div id="taskContainer"></div>
+    <div id="logs"></div>
+
+    <script>
+        let tasks = [];
+        let isProcessing = false;
+        let currentCallbackId;
+
+        // 添加任务
+        function addTasks(count) {
+            for (let i = 0; i < count; i++) {
+                const taskId = tasks.length + 1;
+                tasks.push(taskId);
+                renderTask(taskId);
+            }
+            updateStatus(`已添加${count}个任务，当前总数: ${tasks.length}`);
+        }
+
+        // 开始处理
+        function startProcessing() {
+            if (tasks.length === 0) {
+                updateStatus("没有待处理任务");
+                return;
+            }
+            isProcessing = true;
+            updateStatus("处理中... (尝试滚动或点击页面观察响应)");
+            currentCallbackId = requestIdleCallback(processTasks, { timeout: 2000 });
+        }
+
+        // 任务处理函数
+        function processTasks(deadline) {
+            const startTime = Date.now();
+
+            // 在空闲时间或超时后处理任务
+            while (
+                (deadline.timeRemaining() > 0 || deadline.didTimeout) &&
+                tasks.length > 0
+            ) {
+                const taskId = tasks.shift();
+                simulateTaskProcessing(taskId);
+            }
+
+            // 更新处理后的状态
+            if (tasks.length > 0) {
+                // 如果还有任务，继续请求下一个空闲回调
+                currentCallbackId = requestIdleCallback(processTasks, { timeout: 2000 });
+            } else {
+                isProcessing = false;
+                updateStatus("所有任务完成!");
+            }
+
+            // 记录性能信息
+            log(`处理耗时: ${Date.now() - startTime}ms | 剩余时间: ${deadline.timeRemaining().toFixed(1)}ms | 超时触发: ${deadline.didTimeout}`);
+        }
+
+        // 模拟任务处理（包含异步操作）
+        function simulateTaskProcessing(taskId) {
+            const taskElem = document.querySelector(`#task-${taskId}`);
+
+            // 同步DOM更新
+            requestAnimationFrame(() => {
+                taskElem.classList.add('processing');
+            });
+
+            // 模拟异步工作（例如数据处理）
+            setTimeout(() => {
+                requestAnimationFrame(() => {
+                    taskElem.classList.remove('processing');
+                    taskElem.classList.add('processed');
+                });
+            }, 50); // 模拟50ms的异步任务
+        }
+
+        // 渲染任务到界面
+        function renderTask(taskId) {
+            const taskElem = document.createElement('div');
+            taskElem.id = `task-${taskId}`;
+            taskElem.className = 'task';
+            taskElem.textContent = `任务 #${taskId}`;
+            document.getElementById('taskContainer').appendChild(taskElem);
+        }
+
+        // 状态更新函数
+        function updateStatus(text) {
+            document.getElementById('status').textContent = `状态: ${text}`;
+        }
+
+        // 日志记录
+        function log(message) {
+            const logElem = document.createElement('div');
+            logElem.textContent = `[${new Date().toLocaleTimeString()}] ${message}`;
+            document.getElementById('logs').appendChild(logElem);
+        }
+    </script>
+</body>
+
+</html>

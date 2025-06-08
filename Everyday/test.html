@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <button>Button></button>
+    <script>
+        function createIncrease() {
+            const doms = new Array(100000).fill(0).map((_, i) => {
+                const dom = document.createElement('div');
+                dom.innerHTML = i;
+                return dom;
+            });
+            function innerIncrease() { }
+            function _temp() {
+                doms;
+            }
+            return innerIncrease;
+        }
+        const handlers = [];
+        const btn = document.querySelector('button');
+        btn.addEventListener('click', () => {
+            handlers.push(createIncrease());
+        });
+
+
+
+        setTimeout(() => {
+            btn.removeEventListener('click', increase);
+            increase = null;
+        }, 2000);
+    </script>
+</body>
+
+</html>
